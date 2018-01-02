@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : Character {
 
@@ -25,16 +28,11 @@ public class Player : Character {
 
     public bool Jump { get; set; }
 
-    public bool Slide { get; set; }
+    
     public bool onGround { get; set; }
 
-    public override bool isDead
-    {
-        get
-        {
-            return health <= 0;
-        }
-    }
+    public bool inScene { get; set; }
+
 
     [SerializeField]
     private float groundRadius;
@@ -51,6 +49,16 @@ public class Player : Character {
     [SerializeField]
     private float jumpForce;
 
+    public Text text;
+
+    public Text score;
+
+    public long score_counter;
+
+    private int speed_counter;
+
+    private int score_multiplier;
+
 	// Use this for initialization
 	public override void Start () {
 
@@ -59,55 +67,93 @@ public class Player : Character {
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         
         groundRadius = 0.5f;
+        inScene = true;
+        text.enabled = false;
+        score_counter = 0;
+        score.text = score_counter.ToString();
+        score_multiplier = 1;
 
-    
+
 }
 	
 	// Update based on timestamp
 	void FixedUpdate () {
         // Getting the X-axis value
-        float horizontal = Input.GetAxis("Horizontal");
+        //float horizontal = Input.GetAxis("Horizontal");
+       
+        //Debug.Log(this.inScene);
+        if (inScene == true)
+        {
+            speed_counter += 1;
+            onGround = isOnGround();
 
-        onGround = isOnGround();
+            //movementHandler(horizontal);
 
-        movementHandler(horizontal);
+            //changeDirection(horizontal);
 
-        changeDirection(horizontal);
+            movementHandler(1);
 
-        //movementHandler(1);
+            changeDirection(1);
 
-        //changeDirection(1);
+            layersHandler();
 
-        layersHandler();
+            score_counter += (1* score_multiplier);
+            score.text = score_counter.ToString();
 
+            if (GameObject.Find("Player").transform.position.y <= -6)
+            {
+                this.inScene = false;
+                Debug.Log(this.inScene);
+            }
+
+            if(speed_counter == 500)
+            {
+                speed += 0.5f;
+                score_multiplier += 1;
+                speed_counter = 0;
+            }
+           // Debug.Log(GameObject.Find("Player").transform.position.y);
+
+        }
+        if (inScene == false)
+        {
+            Thread.Sleep(2000);
+            SceneManager.LoadScene("end");
+        }
        
 	}
 
     private void Update()
     {
-       
-        inputHandler();
+        if (this.inScene==true)
+        {
+            inputHandler();
+        }
     }
 
     // Movement Function
     private void movementHandler(float horizontal)
     {
-        if(PlayerRigidBody.velocity.y < 0)
+        if (this.inScene==true)
         {
-            playerAnimator.SetBool("land", true);
+           
+            if (PlayerRigidBody.velocity.y < 0)
+            {
+                playerAnimator.SetBool("land", true);
+            }
+
+            if (onGround)
+            {
+                PlayerRigidBody.velocity = new Vector2(horizontal * speed, PlayerRigidBody.velocity.y);       // x-axis movement
+            }
+
+            if (Jump && PlayerRigidBody.velocity.y == 0)
+            {
+                PlayerRigidBody.AddForce(new Vector2(0, jumpForce));         // Jumping Condition
+            }
+
         }
 
-        if(!Attack && !Slide && onGround)
-        {
-            PlayerRigidBody.velocity = new Vector2(horizontal * speed, PlayerRigidBody.velocity.y);       // x-axis movement
-        }
-
-        if(Jump && PlayerRigidBody.velocity.y == 0)
-        {
-            PlayerRigidBody.AddForce(new Vector2(0, jumpForce));         // Jumping Condition
-        }
-
-        playerAnimator.SetFloat("speed", Mathf.Abs(horizontal));
     }
 
 
@@ -116,26 +162,29 @@ public class Player : Character {
     
     private void inputHandler()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    playerAnimator.SetTrigger("attack");
-        //}
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            playerAnimator.SetTrigger("slide");
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerAnimator.SetTrigger("jump");
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown (KeyCode.P))
         {
-            playerAnimator.SetTrigger("throw");
-            
+            if (Time.timeScale == 1)
+            {
+                Time.timeScale = 0;
+                text.enabled = true;
+
+            }
+            else if (Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+                text.enabled = false;
+
+            }
         }
+        
     }
 
 
@@ -143,14 +192,13 @@ public class Player : Character {
     private void changeDirection(float horizontal)
     {
 
-        if (!Slide)
-        {
+       
             if (horizontal > 0 && !isFacingRight || horizontal < 0 && isFacingRight)
             {
                 // From Character Class
                 ChangeDirection();
             }
-        }
+        
     }
 
 
@@ -194,21 +242,6 @@ public class Player : Character {
         }
     }
 
+    
 
-    public override void throwKnife(int value)
-    {
-        
-        if(!onGround && value == 1 || onGround && value==0)
-        {
-            base.throwKnife(value);
-            
-        }
-        
-    }
-
-    // IEnumerator will take some seconds before call and stuff
-    public override IEnumerator receiveDamage()
-    {
-       yield return null;
-    }
 }

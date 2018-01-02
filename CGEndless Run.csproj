@@ -225,18 +225,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\airtile_1Movement.cs" />
+    <Compile Include="Assets\Scripts\airtile_2Movement.cs" />
+    <Compile Include="Assets\Scripts\backgroundMove.cs" />
+    <Compile Include="Assets\Scripts\bottom_2Movement.cs" />
+    <Compile Include="Assets\Scripts\bottom_3Movement.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CollisionIgnore.cs" />
     <Compile Include="Assets\Scripts\CollisionScript.cs" />
-    <Compile Include="Assets\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\EnemyStateMachine\Idle.cs" />
-    <Compile Include="Assets\Scripts\EnemyStateMachine\IEnemyState.cs" />
-    <Compile Include="Assets\Scripts\EnemyStateMachine\Melee.cs" />
-    <Compile Include="Assets\Scripts\EnemyStateMachine\Patrol.cs" />
-    <Compile Include="Assets\Scripts\EnemyStateMachine\Ranged.cs" />
-    <Compile Include="Assets\Scripts\EnemyVision.cs" />
-    <Compile Include="Assets\Scripts\Knife.cs" />
+    <Compile Include="Assets\Scripts\JumpBehavior.cs" />
+    <Compile Include="Assets\Scripts\LandBehavior.cs" />
+    <Compile Include="Assets\Scripts\LevelLoad.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\TestSetting.cs" />
   </ItemGroup>

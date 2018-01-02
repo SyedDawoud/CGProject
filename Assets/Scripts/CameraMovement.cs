@@ -21,8 +21,9 @@ public class CameraMovement : MonoBehaviour {
 	
 	
 	void LateUpdate () {
-
-        transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax),transform.position.z);
-		
+        if (Player.SingletonInstance.inScene == true)
+        {
+            transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z);
+        }
 	}
 }

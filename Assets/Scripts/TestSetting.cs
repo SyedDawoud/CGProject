@@ -8,9 +8,10 @@ public class TestSetting : MonoBehaviour {
 
    void OnBecameInvisible()
     {
-        
-        transform.localPosition = new Vector3(transform.localPosition.x + 23 , transform.localPosition.y,transform.localPosition.z);
-        
+
+        int x_range = Random.Range(25, 40);
+        transform.localPosition = new Vector3(transform.localPosition.x + x_range, transform.localPosition.y, transform.localPosition.z);
+
     }
 
     

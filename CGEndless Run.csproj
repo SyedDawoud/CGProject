@@ -228,10 +228,12 @@
     <Compile Include="Assets\Scripts\airtile_1Movement.cs" />
     <Compile Include="Assets\Scripts\airtile_2Movement.cs" />
     <Compile Include="Assets\Scripts\backgroundMove.cs" />
+    <Compile Include="Assets\Scripts\bottom_1Movement.cs" />
     <Compile Include="Assets\Scripts\bottom_2Movement.cs" />
     <Compile Include="Assets\Scripts\bottom_3Movement.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
+    <Compile Include="Assets\Scripts\CharacterSelection.cs" />
     <Compile Include="Assets\Scripts\CollisionIgnore.cs" />
     <Compile Include="Assets\Scripts\CollisionScript.cs" />
     <Compile Include="Assets\Scripts\JumpBehavior.cs" />

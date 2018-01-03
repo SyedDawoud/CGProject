@@ -10,6 +10,24 @@ public class LevelLoad : MonoBehaviour {
         
     }
 
+    public void charSelect()
+    {
+        SceneManager.LoadScene("Select");
+    }
+
+    public void KJSelect() {
+
+        CharacterSelection.char_choice = 1;
+        SceneManager.LoadScene("main");
+    }
+
+    public void DSSelect()
+    {
+        
+        CharacterSelection.char_choice = 2;
+        SceneManager.LoadScene("main");
+    }
+
     public void exitGame()
     {
         Debug.Log("Exit called");

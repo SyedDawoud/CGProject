@@ -16,6 +16,19 @@ public class CameraMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        if (CharacterSelection.char_choice == 1)
+        {
+            GameObject.FindGameObjectWithTag("DS").SetActive(false);
+            GameObject.FindGameObjectWithTag("KJ").SetActive(true);
+        } 
+        else if (CharacterSelection.char_choice == 2)
+        {
+            GameObject.FindGameObjectWithTag("KJ").SetActive(false);
+            GameObject.FindGameObjectWithTag("DS").SetActive(true);
+        }
+
+
         target = GameObject.Find("Player").transform;
 	}
 	

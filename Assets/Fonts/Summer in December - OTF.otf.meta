@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 3fa4356e7b4dfd645a8f8d3e0b96511c
+timeCreated: 1514989196
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Summer in December
+  fontNames:
+  - Summer in December
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

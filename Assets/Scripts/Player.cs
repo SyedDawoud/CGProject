@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,8 +38,6 @@ public class Player : Character {
     [SerializeField]
     private float groundRadius;
 
-    
-
     [SerializeField]
     private LayerMask groundSelector;
 
@@ -59,6 +58,9 @@ public class Player : Character {
 
     private int score_multiplier;
 
+    private double highScore;
+
+
 	// Use this for initialization
 	public override void Start () {
 
@@ -72,9 +74,13 @@ public class Player : Character {
         score_counter = 0;
         score.text = score_counter.ToString();
         score_multiplier = 1;
+        string temp = System.IO.File.ReadAllText("Assets/Scripts/highscore.txt");
+
+        highScore = Convert.ToDouble(temp);
+       
 
 
-}
+    }
 	
 	// Update based on timestamp
 	void FixedUpdate () {
@@ -108,7 +114,7 @@ public class Player : Character {
 
             if(speed_counter == 500)
             {
-                speed += 0.5f;
+                speed += 0.9f;
                 score_multiplier += 1;
                 speed_counter = 0;
             }
@@ -118,7 +124,21 @@ public class Player : Character {
         if (inScene == false)
         {
             Thread.Sleep(2000);
-            SceneManager.LoadScene("end");
+            if(score_counter > highScore)
+            {
+                highScore = score_counter;
+                using (StreamWriter writer =
+            new StreamWriter("Assets/Scripts/highscore.txt"))
+                {
+                 
+                    writer.WriteLine(score_counter);
+                   
+                }
+            }
+
+        CharacterSelection.accessible_score=score_counter;
+        CharacterSelection.highScore = (long)highScore;
+        SceneManager.LoadScene("end");
         }
        
 	}

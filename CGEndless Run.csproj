@@ -236,11 +236,16 @@
     <Compile Include="Assets\Scripts\CharacterSelection.cs" />
     <Compile Include="Assets\Scripts\CollisionIgnore.cs" />
     <Compile Include="Assets\Scripts\CollisionScript.cs" />
+    <Compile Include="Assets\Scripts\endGameScore.cs" />
     <Compile Include="Assets\Scripts\JumpBehavior.cs" />
     <Compile Include="Assets\Scripts\LandBehavior.cs" />
     <Compile Include="Assets\Scripts\LevelLoad.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\ScoreDisplayer.cs" />
     <Compile Include="Assets\Scripts\TestSetting.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Scripts\highscore.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
